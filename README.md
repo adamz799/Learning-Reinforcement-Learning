@@ -1,7 +1,7 @@
 # Learning-Reinforcement-Learning
 
 Algorithms' implementation for "Reinforcement Learning: An Introduction(2nd)" by Richard S. Sutton in python3.
-Reading is insufficient, practice makes understanding. 
+  Reading is insufficient, practice makes understanding. 
 
 
 ## Installation Dependencies:
