@@ -10,7 +10,7 @@ Algorithms' implementation of "Reinforcement Learning: An Introduction(2nd)" by 
 * Numpy
 
 ## References
-"Reinforcement Learning: An Introduction(2nd)" by Richard S. Sutton.
+"Reinforcement Learning: An Introduction(2nd)" by Richard S. Sutton and Andrew G. Barto.
 
 ## Disclaimer
 This work is highly based on the following repo(s):
