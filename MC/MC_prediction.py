@@ -7,7 +7,7 @@ from env.Blackjack import BlackjackEnv
 
 
 env = BlackjackEnv()
-random_policy = defaultdict(lambda: 1.0/env.nA)
+policy = defaultdict(lambda: 1.0/env.nA)#random policy
 
 def act(state, policy):
     """
@@ -46,8 +46,8 @@ def MC_prediction(env, policy = None, num_episodes=10000, gamma = 0.95):
     Args:
         policy: A dictionary that maps a state-action pair to probabilities.
         env: OpenAI gym environment.
-        episodes: List of episodes.
-        discount_factor: Gamma discount factor.
+        num_episodes: Number of episodes.
+        gamma: discount factor.
     
     Returns:
         A dictionary that maps from state -> value.
@@ -62,7 +62,7 @@ def MC_prediction(env, policy = None, num_episodes=10000, gamma = 0.95):
         episode = generate_episodes(policy, env)
         G = 0
         met_states = []
-        for state, action, reward in episode:
+        for state, action, reward in episode[::-1]:
             G = gamma*G + reward
             if state not in met_states:#first-visit MC prediction
                 V[state] += (G-V[state])/(returns_count[state]+1)
