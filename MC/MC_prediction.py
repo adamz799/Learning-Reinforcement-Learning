@@ -7,7 +7,7 @@ from env.Blackjack import BlackjackEnv
 
 
 env = BlackjackEnv()
-policy = defaultdict(lambda: 1.0/env.nA)#random policy
+random_policy = defaultdict(lambda: 1.0/env.nA)
 
 def act(state, policy):
     """
