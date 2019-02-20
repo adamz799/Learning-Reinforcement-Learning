@@ -8,7 +8,8 @@ from MC_prediction import act, generate_episodes
 
 
 env = BlackjackEnv()
-random_policy = defaultdict(lambda: 1.0/env.nA)
+SHAPE = [sub_space.n for sub_space in env.observation_space.spaces].append(env.nA)
+policy = np.zeros(SHAPE)+1.0/env.nA #random policy
 
 def MC_estimating(env, policy = None, num_episodes=10000, gamma = 0.95, epsilon = 0.2):
     """
@@ -16,41 +17,38 @@ def MC_estimating(env, policy = None, num_episodes=10000, gamma = 0.95, epsilon 
     policy using sampling.
     
     Args:
-        policy: A dictionary that maps a (state,action) to probabilities.
+        policy: A numpy array that maps a state-action pair to probabilities.
         env: OpenAI gym environment.
         num_episodes: Number of episodes.
-        gamma: discount factor.
-        epsilon: factor for ε-greedy policy
+        gamma: Discount factor.
+        epsilon: Factor for ε-greedy policy
     
     Returns:
-        A dictionary that maps from (state,action) -> value.
+        A numpy array that maps from (state,action) -> value.
         The state-action pair is a tuple and the value is a float.
     """
 
     #returns_avg = defaultdict(float)
-    returns_count = defaultdict(float)
-    Q = defaultdict(float) 
+    returns_count = np.zeros(SHAPE)
+    Q = np.zeros(SHAPE)
     
     for _ in range(num_episodes):
         episode = generate_episodes(policy, env)
         G = 0
-        met_sa = []
+        met_sa = {}
         for state, action, reward in episode[::-1]:
             G = gamma*G + reward
-            s_a = (state, action)#state_action pair
-            if state not in met_sa:#first-visit MC estimating
-                Q[s_a] += (G-Q[s_a])/(returns_count[state]+1)
+            s_a = state+(action,) #state_action pair    
+            #if met_sa.get(s_a,Ture):       
+            if s_a not in met_sa: #first-visit MC estimating
+                Q[s_a] += (G-Q[s_a])/(returns_count[s_a]+1)
                 returns_count[s_a]+=1
-                met_sa.append(s_a)
+                met_sa[s_a] = False
 
                 #policy_improvement
-                actions_prob = np.ndarray(env.nA)
-                for a in range(env.nA):
-                    actions_prob[a] = policy[(state,a)]
-                greedy_action = np.argmax(actions_prob)
-                
+                greedy_action = np.argmax(Q[state])               
                 p = epsilon/env.nA
                 for a in range(env.nA):
-                    policy[(state,a)] = 1.0-epsilon+p if a is greedy_action else p
+                    policy[s_a] = 1.0-epsilon+p if a is greedy_action else p
 
     return Q
