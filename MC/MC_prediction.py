@@ -67,8 +67,8 @@ def MC_prediction(env, policy = None, num_episodes=10000, gamma = 0.95):
         for state, action, reward in episode[::-1]:
             G = gamma*G + reward
             if state not in met_states:#first-visit MC prediction
-                V[state] += (G-V[state])/(returns_count[state]+1)
                 returns_count[state]+=1
+                V[state] += (G-V[state])/returns_count[state]                
                 met_states[state] = False
     
     return V
