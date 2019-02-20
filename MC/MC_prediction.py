@@ -54,7 +54,9 @@ def MC_prediction(env, policy = None, num_episodes=10000, gamma = 0.95):
         The state is a tuple and the value is a float.
     """
 
-    #returns_avg = defaultdict(float)
+    # returns_avg = defaultdict(float)
+    # returns_count = defaultdict(float)
+    # V = defaultdict(float)
     returns_count = np.zeros(SHAPE[:-1])
     V = np.zeros(SHAPE[:-1])
     
