@@ -7,21 +7,21 @@ from env.Blackjack import BlackjackEnv
 
 
 env = BlackjackEnv()
-policy = defaultdict(lambda: 1.0/env.nA)#random policy
+#shape = [sum of player, dealer's first card, usable_ace, amount of actions]
+SHAPE = [sub_space.n for sub_space in env.observation_space.spaces].append(env.nA)
+policy = np.zeros(SHAPE)+1.0/env.nA#random policy
+
+# policy = defaultdict(lambda: 1.0/env.nA)
 
 def act(state, policy):
     """
-    policy = {(state,action):probility}
     state = (player_score, dealer_first_card, usable_ace)
     """
-    if policy == None:#for sample policy
+    if policy == None: #for sample policy
         return 0 if state[0] >= 20 else 1 
-    else:#for other policy       
-        P = []
-        for action in range(env.nA):
-            P.append(policy[(state, action)])       
+    else: #for other policy       
+        P = policy[state] #A tuple can be used as an index of numpy array
         return np.random.choice(np.arange(env.nA), p=P)
-
 
 def generate_episodes(policy, env):
     """
@@ -44,29 +44,29 @@ def MC_prediction(env, policy = None, num_episodes=10000, gamma = 0.95):
     for a given policy using sampling.
     
     Args:
-        policy: A dictionary that maps a state-action pair to probabilities.
+        policy: A numpy array that maps a state-action pair to probabilities.
         env: OpenAI gym environment.
         num_episodes: Number of episodes.
-        gamma: discount factor.
+        gamma: Discount factor.
     
     Returns:
-        A dictionary that maps from state -> value.
+        A numpy array that maps from state -> value.
         The state is a tuple and the value is a float.
     """
 
     #returns_avg = defaultdict(float)
-    returns_count = defaultdict(float)
-    V = defaultdict(float) 
+    returns_count = np.zeros(SHAPE[:-1])
+    V = np.zeros(SHAPE[:-1])
     
     for _ in range(num_episodes):
         episode = generate_episodes(policy, env)
         G = 0
-        met_states = []
+        met_states = {}
         for state, action, reward in episode[::-1]:
             G = gamma*G + reward
             if state not in met_states:#first-visit MC prediction
                 V[state] += (G-V[state])/(returns_count[state]+1)
                 returns_count[state]+=1
-                met_states.append(state)
+                met_states[state] = False
     
     return V
