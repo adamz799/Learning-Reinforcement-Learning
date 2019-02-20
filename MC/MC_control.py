@@ -10,6 +10,8 @@ from MC_prediction import act, generate_episodes
 env = BlackjackEnv()
 SHAPE = [sub_space.n for sub_space in env.observation_space.spaces].append(env.nA)
 policy = np.zeros(SHAPE)+1.0/env.nA #random policy
+# Dicttionary saves memory, but numpy is more intuitional and convenient
+# policy = defaultdict(lambda: 1.0/env.nA)
 
 def MC_estimating(env, policy = None, num_episodes=10000, gamma = 0.95, epsilon = 0.2):
     """
@@ -28,7 +30,9 @@ def MC_estimating(env, policy = None, num_episodes=10000, gamma = 0.95, epsilon 
         The state-action pair is a tuple and the value is a float.
     """
 
-    #returns_avg = defaultdict(float)
+    # returns_avg = defaultdict(float)
+    # returns_count = defaultdict(float)
+    # Q = defaultdict(float)
     returns_count = np.zeros(SHAPE)
     Q = np.zeros(SHAPE)
     
@@ -49,6 +53,6 @@ def MC_estimating(env, policy = None, num_episodes=10000, gamma = 0.95, epsilon 
                 greedy_action = np.argmax(Q[state])               
                 p = epsilon/env.nA
                 for a in range(env.nA):
-                    policy[s_a] = 1.0-epsilon+p if a is greedy_action else p
+                    policy[state+(a,)] = 1.0-epsilon+p if a is greedy_action else p
 
     return Q
