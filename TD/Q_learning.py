@@ -3,18 +3,16 @@ import sys
 if "../" not in sys.path:
   sys.path.append("../")
 from collections import defaultdict
-from env.WindyGridworld import WindyGridWorldEnv
+from env.CliffWalkingEnv import CliffWalkingEnv
 
-env = WindyGridWorldEnv()
+env = CliffWalkingEnv()
 SHAPE = env.shape.append(env.nA)
 policy = np.zeros(SHAPE)+1.0/env.nA #random policy
 #prob_sum = np.sum(policy,axis=len(SHAPE)-1)[:,:,np.newaxis]
 
 
 def act_Q(env, state, action):   
-    next_state, reward, is_done = env.step(state, action)
-    
-    
+    next_state, reward, is_done = env.step(state, action)   
     return  reward, next_state, is_done 
      
 
