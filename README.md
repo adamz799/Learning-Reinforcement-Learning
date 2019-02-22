@@ -8,6 +8,7 @@ Algorithms' implementation of "Reinforcement Learning: An Introduction(2nd)" by 
 * Python 3.5
 * gym
 * Numpy
+* Scikit-learn
 
 ## References
 "Reinforcement Learning: An Introduction(2nd)" by Richard S. Sutton and Andrew G. Barto.
