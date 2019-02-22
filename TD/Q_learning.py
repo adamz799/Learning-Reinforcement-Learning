@@ -3,7 +3,7 @@ import sys
 if "../" not in sys.path:
   sys.path.append("../")
 from collections import defaultdict
-from env.CliffWalkingEnv import CliffWalkingEnv
+from env.CliffWalking import CliffWalkingEnv
 
 env = CliffWalkingEnv()
 SHAPE = env.shape.append(env.nA)
