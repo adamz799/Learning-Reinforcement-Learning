@@ -9,6 +9,7 @@ Algorithms' implementation of "Reinforcement Learning: An Introduction(2nd)" by 
 * gym
 * Numpy
 * Scikit-learn
+* [Pytorch](https://pytorch.org/)
 
 ## References
 "Reinforcement Learning: An Introduction(2nd)" by Richard S. Sutton and Andrew G. Barto.
