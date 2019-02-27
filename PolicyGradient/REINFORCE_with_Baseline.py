@@ -109,7 +109,7 @@ def reinforce(gamma=0.95, alpha_w = 1e-4, alpha_theta = 1e-4, num_eposide = 1000
             policy_optimizer.step()
 
             g /= gamma
-            i+1
+            i+=1
             writer.add_scalar('data/value_loss', value_loss, i)
             writer.add_scalar('data/policy_loss', policy_loss, i)
 
