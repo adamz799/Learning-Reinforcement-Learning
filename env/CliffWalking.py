@@ -1,4 +1,4 @@
-# Windy Gridworld
+# Cliff Walking
 
 import numpy as np
 import io, sys
@@ -32,7 +32,7 @@ class CliffWalkingEnv(discrete.DiscreteEnv):
             #s = it.iterindex
             y,x = it.multi_index
             s = (y,x) # Use tuple of index to represent state
-
+            P[s] = {}
             # P[s][a] = (prob, next_state, reward, is_done)
             for a in range(nA):
                 P[s][a] = self._calculate_transition_prob(s, delta[a], cliff)
@@ -101,7 +101,7 @@ class CliffWalkingEnv(discrete.DiscreteEnv):
             Tuple(prob, next_state, reward, is_done)
         """
         new_s = np.array(s) + delta
-        new_s = self._limit_coordinates(new_s).astype(int)
+        new_s =  tuple(self._limit_coordinates(new_s).astype(int))
         is_done = self._is_terminal(s)
         reward = is_done - 1.0
         if new_s in cliff:
