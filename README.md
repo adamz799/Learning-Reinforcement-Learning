@@ -10,6 +10,7 @@ Algorithms' implementation of "Reinforcement Learning: An Introduction(2nd)" by 
 * Numpy
 * Scikit-learn
 * [Pytorch](https://pytorch.org/)
+* tensorboardX
 
 ## References
 "Reinforcement Learning: An Introduction(2nd)" by Richard S. Sutton and Andrew G. Barto.
