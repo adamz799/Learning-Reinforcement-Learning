@@ -67,10 +67,10 @@ def train(net, t, T_counter, optimizer, loss_func):
 
         for value, action_index, reward, prob in episode[::-1]:
             R = reward + GAMMA*R
-            loss = -prob.log_prob(action_index)* (R - value.detach()) - BETA*prob.entropy()
-            loss_v = loss_func(R, value)
-            loss.backward(retain_graph=True)
-            loss_v.backward()
+        loss = -prob.log_prob(action_index)* (R - value.detach()) - BETA*prob.entropy()
+        loss_v = loss_func(R, value)
+        loss.backward(retain_graph=True)
+        loss_v.backward()
 
         optimizer.step()
 
