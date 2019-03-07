@@ -11,6 +11,7 @@ Algorithms' implementation of "Reinforcement Learning: An Introduction(2nd)" by 
 * Scikit-learn
 * [Pytorch](https://pytorch.org/)
 * tensorboardX
+* OpenCV-python
 
 ## References
 "Reinforcement Learning: An Introduction(2nd)" by Richard S. Sutton and Andrew G. Barto.
