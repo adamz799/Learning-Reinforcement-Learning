@@ -20,4 +20,6 @@ Algorithms' implementation of "Reinforcement Learning: An Introduction(2nd)" by 
 This work is highly based on the following repo(s):
 
 [dennybritz/reinforcement-learning](https://github.com/dennybritz/reinforcement-learning)
+[yenchenlin/DeepLearningFlappyBird](https://github.com/yenchenlin/DeepLearningFlappyBird)
+
 
