@@ -1,10 +1,10 @@
 import random
 import numpy as np
 import cv2
-import sys
-sys.path.append("game/")
+import os
+os.path.abspath(os.path.join(os.getcwd(), "../.."))
 from tensorboardX import SummaryWriter
-import wrapped_flappy_bird as game
+import env.flappy_bird.game.wrapped_flappy_bird as game
 
 import torch
 from torch import nn, optim
